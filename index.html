@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./public/main.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@<version>/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root-window">
+      <div id="render-target"></div>
+
+    <script type="module">
+      import { createGame } from './src/game.js'
+
+      window.onload = () => {
+        window.game = createGame()
+      }
+    </script>
+  </body>
+
+</html>
