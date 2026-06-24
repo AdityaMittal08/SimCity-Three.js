@@ -38,22 +38,24 @@ export function createScene(){
     for(let x = 0; x < city.size; x++){
       for(let y = 0; y < city.size; y++){
         // building geometry
-        const tile = city.data[x][y];
-        if(tile.building && tile.building.startsWith('building')){
-          const mesh = createAssetInstance(tile.building, x, y)
-          
-          if(buildings[x][y]){
-            scene.remove(buildings[x][y]);
-          }
-          scene.add(mesh);
-          buildings[x][y] = mesh;
+        const currentBuildingId = buildings[x][y]?.userData.id;
+        const newBuildingId = city.data[x][y].buildingId;
+
+        // if the player removes the building from the scene
+        if(!newBuildingId && currentBuildingId){
+          scene.remove(buildings[x][y]);
+          buildings[x][y] = undefined;
         }
-        
+        // if the data model has changed, update the mesh
+
+        if(!newBuildingId !== currentBuildingId){
+          scene.remove(buildings[x][y]);
+          buildings[x][y] = createAssetInstance(newBuildingId, x, y);
+          scene.add(buildings[x][y])
+        }
       }
     }
   }
-
-
   function setupLights(){
     const lights = [
       new THREE.AmbientLight(0xffffff, 0.2),

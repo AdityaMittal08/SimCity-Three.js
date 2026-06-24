@@ -10,7 +10,7 @@ export function createCity(size){
         const tile = { 
           x,
           y,
-          building: undefined,
+          buildingId: undefined,
           update(){
             const x = Math.random();
             if(x < 0.01){
